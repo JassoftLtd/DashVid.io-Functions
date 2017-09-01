@@ -20,8 +20,7 @@ for directory in $(ls -d */ | sed 's#/##'); do
     npm install
     popd
     echo "Zipping $f"
-    pwd
-    zip -q -9 -r ../../PackagedLambdas/$f.zip $f/*
+    zip -q -9 -r ../../../PackagedLambdas/$f.zip $f/*
   done
 
   popd

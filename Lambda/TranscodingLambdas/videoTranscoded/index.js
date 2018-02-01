@@ -12,13 +12,15 @@ exports.handler = function(event, context) {
 
     for(var i = 0; i < event.Records.length; i++) {
 
-        let record = event.Records[i];
+        var record = event.Records[i];
 
-        let message = JSON.parse(record.Sns.Message);
+        var bucket = record.s3.bucket.name;
+        var key = record.s3.object.key;
 
-        console.log("Message: " + JSON.stringify(message));
+        let keyParts = key.split('/');
 
-        var videoId = /(.+?)(\.[^.]*$|$)/.exec(/[^/]*$/.exec(message.input.key)[0])[1];
+        //Extract the parts from the key
+        var videoId = keyParts[2].split('.')[0];
 
         dynamodb.update({
             TableName: "Videos",
@@ -28,8 +30,8 @@ exports.handler = function(event, context) {
             UpdateExpression: "set Files.Web = :transcoded",
             ExpressionAttributeValues:{
                 ":transcoded":{
-                    "Bucket": process.env.TranscodedBucket,
-                    "Key": message.outputKeyPrefix + message.outputs[0].key
+                    "Bucket": bucket,
+                    "Key": key
                 },
             },
             ReturnValues:"UPDATED_NEW"

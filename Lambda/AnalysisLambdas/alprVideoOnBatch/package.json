@@ -1,7 +1,7 @@
 {
-  "name": "transcodeVideo",
+  "name": "alprVideoOnBatch",
   "version": "1.0.0",
-  "description": "Transcode the video to create smaller optimised versions",
+  "description": "Run Alpr on the video",
   "main": "index.js",
   "scripts": {
     "lint": "jshint **.js"
@@ -12,7 +12,7 @@
     "jshint": "^2.9.4"
   },
   "dependencies": {
-    "aws-sdk": "^2.33.0",
+    "aws-sdk": "^2.138.0",
     "aws-xray-sdk": "^1.1.1"
   }
 }
